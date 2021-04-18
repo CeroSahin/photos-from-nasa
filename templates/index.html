@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Fascinating Space</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <!-- Font Awesome -->
+  <script src="https://use.fontawesome.com/releases/v5.15.2/js/all.js" data-auto-replace-svg="nest"></script>
+
+  <!-- Bootstrap cdn -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+  <!-- Bootstrap js scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <!-- MainPage -->
+  <section class="colored-section" id="title">
+    <div class="container-fluid">
+      <!-- NavBar -->
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: transparent;">
+        <a class="navbar-brand" href="#" style="font-size:3rem">Fascinating Space</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarSupportedContent">
+
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#planets">Planets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#random">Photo of the Day</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Welcome -->
+      <div class="container-fluid welcome-container">
+        <h1 class="big-heading">Welcome to Fascinating Space!</h1>
+        <h2 class="sub-heading">We have been waiting for you...</h2>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Planets -->
+  <section class="planet-section" id="planets">
+
+    <!-- Carousel Start -->
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <h1 class="sub-heading" style="margin: 5%;">Say hi to our planets!</h1>
+      <div class="carousel-inner">
+        <div class="carousel-item container-fluid active">
+          <div class="row">
+            <div class="col-lg-6">
+              <img class="planet-image" src="{{ planets['MERCURY']['img'] }}">
+            </div>
+            <div class="col-lg-6">
+              <h3>MERCURY</h3>
+              <h6>Date Created: {{ planets['MERCURY']["date"] }} </h6>
+              <p class="planet-info">{{ planets['MERCURY']["explanation"] }}</p>
+            </div>
+          </div>
+        </div>
+        {% for planet in planets %}
+        {% if planet != "MERCURY" %}
+        <div class="carousel-item container-fluid">
+          <div class="row">
+            <div class="col-lg-6">
+              <img class="planet-image" src="{{ planets[planet]['img'] }}" >
+            </div>
+            <div class="col-lg-6">
+              <h3>{{ planet }}</h3>
+              <h6>Date Created: {{ planets[planet]["date"] }} </h6>
+              <p class="planet-info">{{ planets[planet]["explanation"] }}</p>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </a>
+    </div>
+    <!-- Carousel End -->
+  </section>
+
+  <!-- Random Photo From Nasa -->
+  <section class="random-photo" id="random">
+    <div class="nasa-part">
+      <div class="row">
+        <div class="col-lg-6">
+          <p class="planet-info"><strong>Date Created: {{ random['date'] }}</strong></p>
+          <p class="planet-info">{{ random['explanation'] }}</p>
+        </div>
+        <div class="col-lg-6">
+          <img class="planet-image" src="{{ random['img'] }}">
+          <form action="{{ url_for('fetch_random_image', _anchor='random') }}" method="post">
+            <button type="submit" class="btn btn-primary generate">I feel lucky!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Footer -->
+<section id="contact" class="footer">
+  <div>
+    <p>© Copyright 2021 Ceren Şahin</p>
+    <p>
+      <a href="https://github.com/Cero-333?tab=repositories"><i class="fab fa-github media-links"></i></a>
+      <a href="https://twitter.com/CerenSahin04"><i class="fab fa-twitter media-links"></i></a>
+      <a href="https://medium.com/@cerensahin"><i class="media-links fab fa-medium"></i></a>
+      <a href="https://www.instagram.com/_cero.s_/"><i class="media-links fab fa-instagram"></i></a>
+      </p>
+    <p>ceren.sahin04@gmail.com</p>
+  </div>
+</section>
+</body>
+
+</html>
